@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {v4 as uuidv4} from 'uuid';
+
 
 function ToDo() {
 
@@ -21,9 +23,9 @@ function ToDo() {
 
     // Set up state for our to do list items.
     const [toDos, setToDos] = useState([
-        {task: "Buy milk"},
-        {task: "Learn React"},
-        {task: "Find out what Redux is"}
+        {id: uuidv4(), task: "Buy milk"},
+        {id: uuidv4(), task: "Learn React"},
+        {id: uuidv4(), task: "Find out what Redux is"}
         //Turn the array into a map with key-value pairs, easy to output JSX this way.
     ]);
 
@@ -34,7 +36,7 @@ function ToDo() {
         // We can use the spread operator (...) to break up an array so that each item inside is treated as an arguement(value seperated by comma, if we were to write it manually)
         const newToDosList = [...toDos]; // Fresh array with the same values as the original array (toDos)
                                         // !!! REMEMBER, WE NEVER UPDATE THE STATE VARIABLE DIRECTLY
-        newToDosList.push({task: newTask});
+        newToDosList.push({id: uuidv4(), task: newTask});
 
         // Update the 'toDos' state value.
         setToDos(newToDosList); // What we pass in will replace the old state value!
@@ -59,7 +61,7 @@ function ToDo() {
                 </p>
                 <input type='submit' value='Add To-Do' />
             </form>
-            <ul>{toDos.map( ( toDo, index ) => <li key={index}>{toDo.task}</li> )}</ul>
+            <ul>{toDos.map( ( toDo, index ) => <li key={toDo.id}>{toDo.task}</li> )}</ul>
         </>
     );
 }
